@@ -4,7 +4,7 @@
 typedef struct customers
 {
     int itens;
-    Customer *next;
+    struct customers *next;
 
 } Customer;
 
@@ -13,17 +13,17 @@ typedef struct cashier
     int id;
     int time;
     int total_time;
-    Customer *queue = NULL;
+    Customer *queue;
 
 } Cashier;
 
 Cashier **make_cashier(int N);
 Customer make_customer(Customer **customers, int M);
 int distributing_to_cashiers(Cashier **array_cashiers, Customer **customers, int N, int M);
-Cashier *the_fast_cashier(Cashier **cashier, int products, int N);
+Cashier *the_faster_cashier(Cashier **cashiers, int products, int N);
 Customer *the_slower_customer(int M, Customer **customer);
-void add_to_queue(Cashier **list, Customer *value);
-void split_sutomer(Customer **customers);
+void add_to_queue(Cashier **faster_cashier, Customer **slower_customer);
+int the_amount_time(Cashier **cashier, int N);
 
 int main()
 {
@@ -37,7 +37,7 @@ int main()
 
     array_cashiers = make_cashiers(N);
     make_customers(&customers, M);
-    amount_time = distributing_to_cashiers(array_cashiers, &customers);
+    amount_time = distributing_to_cashiers(array_cashiers, &customers, N, M);
 
     printf("%i\n", amount_time);
 
@@ -121,11 +121,13 @@ int distributing_to_cashiers(Cashier **cashiers, Customer **customers, int N, in
         slower_customer = the_slower_customer(&customers, M);
         faster_cashier = the_faster_cashier(&cashiers, slower_customer->itens, N);
 
-        add_to_queue(&cashiers, &customers);
-        split_client(&customers);
+        add_to_queue(&faster_cashier, &slower_customer);
 
         aux = aux->next;
     }
+
+    amount_time = the_amount_time(&cashiers, N);
+
     return amount_time;
 }
 
@@ -169,40 +171,28 @@ Customer *the_slower_customer(int M, Customer **customer)
     return the_slow_customer;
 }
 
-void add_to_queue(Cashier **list, Customer *value)
+void add_to_queue(Cashier **faster_cashier, Customer **slower_customer)
 {
 
-    Customer *aux, *new = malloc(sizeof(Customer));
+    Customer *aux_customer = *slower_customer;
 
-    if (new)
-    {
-        new->itens = value->itens;
-        new->next = NULL;
+    (*faster_cashier)->queue = aux_customer;
+    (*slower_customer)->next = aux_customer->next;
 
-        if ((*list)->queue == NULL)
-            (*list)->queue = new;
-
-        else
-        {
-            aux = (*list)->queue;
-
-            while (aux->next)
-                aux = aux->next;
-
-            aux->next = new;
-        }
-    }
-    else
-        printf("Erro ao colocar cliente na fila\n");
-
-    (*list)->total_time = (*list)->total_time + ((*list)->time * new->itens); // não se esqueça de manter a atualização do caixa eleito mais efetivo, pois agora o cliente será alocado para ele e seu tempo total aumentará
+    (*faster_cashier)->total_time = (*faster_cashier)->total_time + ((*faster_cashier)->time * aux_customer->itens); // não se esqueça de manter a atualização do caixa eleito mais efetivo, pois agora o cliente será alocado para ele e seu tempo total aumentará
 }
 
-void split_customer(Customer **customers)
+int the_amount_time(Cashier **cashier, int N)
 {
+    Cashier *aux = *cashier;
 
-    Customer *aux = customers;
+    int i, time = aux[0].total_time;
 
-    aux = aux->next;
-    aux->next = aux->next->next;
+    for (i = 0; i < N; i++)
+    {
+        if (aux[i].total_time > time)
+            time = aux[i].total_time;
+    }
+
+    return time;
 }

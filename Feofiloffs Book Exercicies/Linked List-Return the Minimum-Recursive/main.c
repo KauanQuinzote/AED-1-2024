@@ -38,8 +38,6 @@ int minimum(Node *list, int min){
     
     else return minimum (aux->next, min);
         
-
-        
 }
 
 void insert_at_end(Node **list, int num){
