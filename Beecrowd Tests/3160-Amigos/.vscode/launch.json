@@ -5,13 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "cmake",
+            "name": "(Windows) Iniciar",
+            "type": "cppvsdbg",
             "request": "launch",
-            "name": "CMake: Configurar projeto",
-            "cmakeDebugType": "configure",
-            "clean": false,
-            "configureAll": true
+            "program": "${workspaceFolder}/a.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "console": "externalTerminal"
         }
-
     ]
 }
