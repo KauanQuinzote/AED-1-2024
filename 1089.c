@@ -9,8 +9,12 @@ int main(void) {
   int x;
   
   // Loop que lê o tamanho do array enquanto for um número válido
-  while(scanf("%i", &x) != 0)
+  while(1)
   {
+    scanf("%i", &x);
+
+    if (x == 0)
+      break;
     // Alocação dinâmica de memória para o array de inteiros
     int *array = (int*) malloc(x * sizeof(int));
 
