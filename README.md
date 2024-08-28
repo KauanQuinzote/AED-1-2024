@@ -10,11 +10,13 @@
 
 <div align="center">
   <p>
-  This rep is for my AED (Algorithms and Data Structures) at Universidade Federal de São Paulo. It contains materials like linked lists, piles, queues, binary trees, DFS, BFS, Dijkstra and Beecrowd excercicies.
+    This rep is for my AED (Algorithms and Data Structures) at Universidade Federal de São Paulo. It contains materials like linked lists, piles, queues, binary trees, DFS, BFS, Dijkstra and Beecrowd excercicies.
   </p>
   <p>
-  Professor: Dr.Arlindo Flávio da Conceição
-  Contact: arlindo.conceicao@unifesp.br
+    Professor: Dr.Arlindo Flávio da Conceição
+  </p>
+  <p> 
+    Contact: arlindo.conceicao@unifesp.br
   </p>
   <p>
   My contact: kauan.domingues@unifesp.br
