@@ -45,4 +45,6 @@ int main(void){
 
     BFS(lst, 0);
     DFS(lst, 0, visited);
+
+    queue <int> fila;
 }
